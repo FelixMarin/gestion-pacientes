@@ -2,10 +2,16 @@ $( "#buttonLogin" ).click(function(event) {
 	event.preventDefault();
 	let numColegiado = $('#numColegiado').val();
 
+	if(!validaLogin()) {
+		alert('Login no válido');
+		return false;
+	}
+
 	if(numColegiado) {
-		window.localStorage.setItem('numColegiado', numColegiado);
+		cargarUsuario();
 		isDoctor(numColegiado);
 		datosPaciente();
+		window.localStorage.setItem('numColegiado', numColegiado);
 		window.location = 'http://localhost:8081/medico';
 	} else {
 		cargarUsuario();
@@ -18,20 +24,29 @@ $( "#buttonLogin" ).click(function(event) {
 
 });
 
+function validaLogin() {
+	
+	let pass = $('#logininputpassword').val();
+	let loginuser = $('#loginuser').val();
+
+	return pass && loginuser;
+}
+
 function cargarUsuario() {
+	
+	if(!validaLogin()) {
+		alert('Login no válido');
+		return false;
+	}
 
 	let pass = $('#logininputpassword').val();
 	let login = $('#loginuser').val();
-
-	if(!login || !pass) {
-		alert('Debe rellenar todos los campos');
-		return false;
-	}
 
 	let loginValue = '{"namelogin":"' + login + '", "clave":"' + pass + '"}';
 
 	$.ajax({
 		contentType: 'application/json',
+		async:false,
 		data: loginValue,
 		success: function(data) {
 			if(data) {
@@ -63,6 +78,7 @@ function isDoctor(numColegiado) {
 
 	$.ajax({
 		contentType: 'application/json',
+		async:false,
 		data: usuario.id,
 		success: function(data) {
 			if(data) {
@@ -98,6 +114,7 @@ function datosPaciente() {
 
 	$.ajax({
 		contentType: 'application/json',
+		async:false,
 		data: usuario.id,
 		success: function(data) {
 			if(data) {
