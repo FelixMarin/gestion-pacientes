@@ -2,8 +2,11 @@
 
 .login-page {
   width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+  padding: 10% 0 0;
+}
+.texto-main {
+		padding-top:160px;
+		padding-left:140px;
 }
 .form {
   position: relative;
@@ -88,13 +91,13 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
+.text-main {
+	    text-align: justify;
+    text-shadow: 0 0 black;
+}
 body {
-  background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+ background-image: url("../img/back1.jpg");    
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

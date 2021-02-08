@@ -29,6 +29,10 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
 		iterable.forEach(diagnostico -> {
 			list.add(DiagnosticoDto.builder()
 					.id(diagnostico.getId())
+					.fecCreacion(diagnostico.getFechaCreacion())
+					.fecModificacion(diagnostico.getFechaModificacion())
+					.paciente(diagnostico.getPaciente())
+					.historial(diagnostico.getHistorial())
 					.cita(diagnostico.getCita())
 					.valoracionEspecialista(diagnostico.getValoracionEspecialista())
 					.enfermedad(diagnostico.getEnfermedad()).build());
@@ -54,6 +58,10 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
 		Diagnostico entidad = res.orElseThrow(() -> new IOException()); 
 		entidad.setCita(diagnostico.getCita());
 		entidad.setEnfermedad(diagnostico.getEnfermedad());
+		entidad.setFechaCreacion(diagnostico.getFecCreacion());
+		entidad.setFechaModificacion(diagnostico.getFecModificacion());
+		entidad.setHistorial(diagnostico.getHistorial());
+		entidad.setPaciente(diagnostico.getPaciente());
 		entidad.setValoracionEspecialista(diagnostico.getValoracionEspecialista());
 		diagnosticoRepository.save(entidad);
 		return Optional.ofNullable(Mapper.getModelMapper().map(entidad, DiagnosticoDto.class));

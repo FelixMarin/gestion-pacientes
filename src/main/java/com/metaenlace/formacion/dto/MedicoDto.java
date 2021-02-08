@@ -1,10 +1,10 @@
 package com.metaenlace.formacion.dto;
 
-import java.util.Set;
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
-import com.metaenlace.formacion.model.Paciente;
+import com.metaenlace.formacion.model.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,9 @@ import lombok.Setter;
 public class MedicoDto {
 	
 	private Long id;
+	private Usuario usuario;
 	private String numColegiado;	
-	private Set<Paciente> linkedPacientes;
+	private LocalDate fecCreacion;
+	private LocalDate fecModificacion;
 
 }

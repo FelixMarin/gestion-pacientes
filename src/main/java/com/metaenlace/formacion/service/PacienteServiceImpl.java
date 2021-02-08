@@ -29,10 +29,14 @@ public class PacienteServiceImpl implements PacienteService {
 		Iterable<Paciente> pacientes = pacienteRepository.findAll();
 		
 		pacientes.forEach(paciente -> {
-			ResultadoDto res = ResultadoDto.builder().id(paciente.getId())
-					.nnss(paciente.getNnss()).nombre(paciente.getNombre())
-					.apellidos(paciente.getApellidos()).clave(paciente.getClave())
-					.numTarjeta(paciente.getNumTarjeta()).usuario(paciente.getUsuario()).telefono(paciente.getTelefono()).build();
+			ResultadoDto res = ResultadoDto.builder().id(paciente.getUsuario().getId())
+					.nnss(paciente.getNnss()).nombre(paciente.getUsuario().getNombre())
+					.apellidos(paciente.getUsuario().getApellidos())
+					.clave(paciente.getUsuario().getClave())
+					.medicoAsignado(paciente.getMedico())
+					.numTarjeta(paciente.getNumTarjeta())
+					.usuario(paciente.getUsuario().getLogin())
+					.telefono(paciente.getTelefono()).build();
 			listaResultado.add(res);
 		});
 		
@@ -58,6 +62,7 @@ public class PacienteServiceImpl implements PacienteService {
 		Paciente entidad = res.orElseThrow(() -> new IOException()); 
 		entidad.setNnss(paciente.getNnss());
 		entidad.setNumTarjeta(paciente.getNumTarjeta());
+		entidad.setMedico(paciente.getMedico());
 		entidad.setTelefono(paciente.getTelefono());
 		pacienteRepository.save(entidad);
 		return Optional.ofNullable(Mapper.getModelMapper().map(entidad, PacienteDto.class));

@@ -1,5 +1,7 @@
 package com.metaenlace.formacion.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,11 +26,29 @@ public class Diagnostico {
 	@Id
 	@Column(name = "id")
 	private Long id;
-	@Column(name = "valoracion_especialista")
-	private String valoracionEspecialista;
-	private String enfermedad;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cita", referencedColumnName = "id")
 	private Cita cita;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_paciente", referencedColumnName = "id")
+	private Paciente paciente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_historial", referencedColumnName = "id")
+	private HistorialPaciente historial;
+		
+	@Column(name = "valoracion_especialista", columnDefinition = "bpchar(255)", length = 255)
+	private String valoracionEspecialista;
+	
+	@Column(columnDefinition = "bpchar(255)", length = 255)
+	private String enfermedad;
+	
+	@Column(name = "fecha_creacion")
+	private LocalDate fechaCreacion;
+	
+	@Column(name = "fecha_modificacion")
+	private LocalDate fechaModificacion;
+
 }

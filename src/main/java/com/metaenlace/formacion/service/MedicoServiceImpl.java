@@ -27,9 +27,12 @@ public class MedicoServiceImpl implements MedicoService {
 		Iterable<Medico> iterable = medicoRepository.findAll();
 		
 		iterable.forEach(medico -> {
-			ResultadoDto res = ResultadoDto.builder().id(medico.getId())
-					.nombre(medico.getNombre()).apellidos(medico.getApellidos()).clave(medico.getClave())
-					.numColegiado(medico.getNumColegiado()).usuario(medico.getUsuario()).build();
+			ResultadoDto res = ResultadoDto.builder().id(medico.getUsuario().getId())
+					.nombre(medico.getUsuario().getNombre())
+					.apellidos(medico.getUsuario().getApellidos())
+					.clave(medico.getUsuario().getClave())
+					.numColegiado(medico.getNumColegiado())
+					.usuario(medico.getUsuario().getLogin()).build();
 			list.add(res);
 		});
 		return list;

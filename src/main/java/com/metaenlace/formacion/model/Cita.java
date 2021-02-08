@@ -1,5 +1,7 @@
 package com.metaenlace.formacion.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,6 +35,23 @@ public class Cita {
 	@JoinColumn(name = "id_medico", referencedColumnName = "id")
 	private Medico medico;
 	
-	@Column(name = "motivo_cita")
+	@ManyToOne
+	@JoinColumn(name = "id_historial", referencedColumnName = "id")
+	private HistorialPaciente historial;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_estado", referencedColumnName = "id")
+	private EstadoCita estado;
+	
+	@Column(name = "motivo_cita", columnDefinition = "bpchar(255)", length = 255) 
 	private String motivoCita;
+	
+	@Column(name = "fecha_hora_cita")
+	private LocalDate fechaHoraCita;
+	
+	@Column(name = "fecha_creacion")
+	private LocalDate fechaCreacion;
+	
+	@Column(name = "fecha_modificacion")
+	private LocalDate fechaModificacion;
 }

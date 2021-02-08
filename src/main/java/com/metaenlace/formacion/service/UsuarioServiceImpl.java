@@ -31,6 +31,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 					.id(usuario.getId())
 					.nombre(usuario.getNombre())
 					.apellidos(usuario.getApellidos())
+					.namelogin(usuario.getLogin())
+					.tipoUsuario(usuario.getTipoUsuario())
+					.fecCreacion(usuario.getFechaCreacion())
+					.fecModificacion(usuario.getFechaModificacion())
 					.clave(usuario.getClave()).build());
 		});
 		return list;
@@ -70,11 +74,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario entity = oEntity.orElseThrow();
 		UsuarioDto dto = UsuarioDto.builder()
 				.id(entity.getId())
+				.tipoUsuario(entity.getTipoUsuario())
 				.nombre(entity.getNombre())
 				.apellidos(entity.getApellidos())
-				.namelogin(entity.getUsuario())
+				.namelogin(entity.getLogin())
 				.clave(entity.getClave())
-				.usuario(entity.getUsuario()).build();
+				.fecCreacion(entity.getFechaCreacion())
+				.fecModificacion(entity.getFechaModificacion())
+				.usuario(entity.getLogin()).build();
 		return Optional.ofNullable(dto);
 	}
 }

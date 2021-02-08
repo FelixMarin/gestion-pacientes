@@ -10,6 +10,6 @@ import com.metaenlace.formacion.model.Usuario;
 
 public interface UsuarioRepository  extends JpaRepository<Usuario, Long> {
 
-	@Query("from com.metaenlace.formacion.model.Usuario usu where usu.usuario = :usuario and usu.clave = :clave")
+	@Query("from com.metaenlace.formacion.model.Usuario usu where usu.login = :usuario and usu.clave = :clave")
 	Optional<Usuario> findByUsuarioAndClave(@Param("usuario") String usuario, @Param("clave") String clave);
 }

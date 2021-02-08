@@ -29,8 +29,14 @@ public class CitaServiceImpl implements CitaService {
 		iterable.forEach(cita -> {
 			list.add(CitaDto.builder()
 					.id(cita.getId())
-					.medico(cita.getMedico())
 					.paciente(cita.getPaciente())
+					.medico(cita.getMedico())
+					.historial(cita.getHistorial())
+					.estado(cita.getEstado())
+					.paciente(cita.getPaciente())
+					.fecHoraCita(cita.getFechaHoraCita())
+					.fecCreacion(cita.getFechaCreacion())
+					.fecModificacion(cita.getFechaModificacion())
 					.motivoCita(cita.getMotivoCita()).build());
 		});
 		return list;
@@ -45,7 +51,8 @@ public class CitaServiceImpl implements CitaService {
 	
 	public Optional<CitaDto> save(CitaDto cita) {
 		Cita entidad = Mapper.getModelMapper().map(cita, Cita.class);
-		return Optional.ofNullable(Mapper.getModelMapper().map(citaRepository.save(entidad), CitaDto.class));
+		return Optional.ofNullable(Mapper.getModelMapper()
+				.map(citaRepository.save(entidad), CitaDto.class));
 	}
 	
 	@Transactional
@@ -53,8 +60,12 @@ public class CitaServiceImpl implements CitaService {
 		Optional<Cita> res = citaRepository.findById(cita.getId());
 		Cita entidad = res.orElseThrow(() -> new IOException()); 
 		entidad.setMedico(cita.getMedico());
+		entidad.setEstado(cita.getEstado());
+		entidad.setFechaCreacion(cita.getFecCreacion());
+		entidad.setFechaModificacion(cita.getFecModificacion());
 		entidad.setMotivoCita(cita.getMotivoCita());
 		entidad.setPaciente(cita.getPaciente());
+		entidad.setHistorial(cita.getHistorial());
 		citaRepository.save(entidad);
 		return Optional.ofNullable(Mapper.getModelMapper().map(entidad, CitaDto.class));
 	}

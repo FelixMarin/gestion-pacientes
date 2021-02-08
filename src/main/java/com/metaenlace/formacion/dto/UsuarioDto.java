@@ -1,6 +1,7 @@
 package com.metaenlace.formacion.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
@@ -28,5 +29,8 @@ public class UsuarioDto implements Serializable {
 	private String apellidos;
 	private String usuario;
 	private String namelogin;
+	private String tipoUsuario;
 	private String clave;
+	private LocalDate fecCreacion;
+	private LocalDate fecModificacion;
 }

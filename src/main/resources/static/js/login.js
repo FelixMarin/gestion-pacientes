@@ -1,21 +1,25 @@
 $( "#buttonLogin" ).click(function(event) {
 	event.preventDefault();
 	let numColegiado = $('#numColegiado').val();
+	let numFuncional = $('#numFuncional').val();
 
 	if(!validaLogin()) {
 		alert('Login no válido');
 		return false;
 	}
-
-	if(numColegiado) {
-		cargarUsuario();
-		isDoctor(numColegiado);
-		datosPaciente();
+	
+	cargarUsuario();
+	datosPaciente();
+	
+	if(numColegiado) {		
+		isDoctor(numColegiado);		
 		window.localStorage.setItem('numColegiado', numColegiado);
-		window.location = 'http://localhost:8081/medico';
+		window.location = 'http://localhost:8081/medico';		
+	} else if(numFuncional) {
+		isFuncional(numFuncional);
+		window.localStorage.setItem('numFuncional', numFuncional);
+		window.location = 'http://localhost:8081/funcional';
 	} else {
-		cargarUsuario();
-		datosPaciente();
 		window.location = 'http://localhost:8081/paciente';
 	}
 
@@ -101,6 +105,42 @@ function isDoctor(numColegiado) {
 		},
 		processData: false,
 		url: '/medico/colegiado?numColegiado=' + numColegiado,
+		type: 'GET',
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader('Authorization','Bearer ' + window.localStorage.getItem('access_token'));
+		},
+	});
+}
+
+function isFuncional(numFuncional) {
+	
+	let usuario = JSON.parse(window.localStorage.getItem('usuario'));
+
+	$.ajax({
+		contentType: 'application/json',
+		async:false,
+		data: usuario.id,
+		success: function(data) {
+			if(data) {
+				console.log(data);
+				let func = JSON.stringify(data);
+				let funcional = JSON.parse(func);
+				if((funcional.numFuncional != null || funcional.numFuncional != undefined) && 
+						(numFuncional == funcional.numFuncional)) {
+					window.localStorage.setItem('funcional', funcional);					
+				}
+			} else {
+				alert('Usuario no válido');
+			}
+		},
+		error: function(xhr, textStatus, error){
+			console.log(xhr.responseText);
+			console.log(xhr.statusText);
+			console.log(textStatus);
+			console.log(error);
+		},
+		processData: false,
+		url: '/funcional/operador?numFuncional=' + numFuncional,
 		type: 'GET',
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader('Authorization','Bearer ' + window.localStorage.getItem('access_token'));
