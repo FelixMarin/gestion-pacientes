@@ -9,18 +9,18 @@ $( "#buttonLogin" ).click(function(event) {
 	}
 	
 	cargarUsuario();
-	datosPaciente();
 	
 	if(numColegiado) {		
 		isDoctor(numColegiado);		
 		window.localStorage.setItem('numColegiado', numColegiado);
-		window.location = 'http://localhost:8081/medico';		
+		window.location = '/medico';		
 	} else if(numFuncional) {
 		isFuncional(numFuncional);
 		window.localStorage.setItem('numFuncional', numFuncional);
-		window.location = 'http://localhost:8081/funcional';
+		window.location = '/funcional';
 	} else {
-		window.location = 'http://localhost:8081/paciente';
+		datosPaciente();
+		window.location = '/paciente';
 	}
 
 	//let usuario = JSON.parse(window.localStorage.getItem('usuario'));

@@ -10,19 +10,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/")
-public class LoginController {
-
-	  @RequestMapping(value = "login", method = RequestMethod.GET)
-      public ModelAndView login() {
-          ModelAndView mav = new ModelAndView("login");
-          return mav;
-      }
-	  
-	  @RequestMapping(value = "paciente", method = RequestMethod.GET)
-      public ModelAndView paciente() {
-          ModelAndView mav = new ModelAndView("paciente");
-          return mav;
-      }
+public class MedicoOnlineController {
 	  
 	  @RequestMapping(value = "medico", method = RequestMethod.GET)
       public ModelAndView medico() {

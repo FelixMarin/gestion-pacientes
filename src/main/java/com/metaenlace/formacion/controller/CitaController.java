@@ -54,4 +54,9 @@ public class CitaController {
 	public ResponseEntity<?> delete(@RequestBody @NonNull CitaDto cita) throws IOException {
 		return ResponseEntity.ok().body(service.delete((cita)));
 	}
+	
+	@PostMapping(value = "/findbypaciente", consumes = "application/json")
+	public ResponseEntity<?> findByPaciente(@RequestBody @NonNull CitaDto cita) throws IOException {
+		return ResponseEntity.ok().body(service.findByIdPaciente((cita)));
+	}
 }

@@ -8,6 +8,7 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="css/paciente.css">
+<link rel="stylesheet" href="css/detalleCita.css">
 </head>
 <body onload="init()">
 	<div class="container-fluid">
@@ -20,10 +21,10 @@
 						</div>
 					</div>
 					<div class="row">
-						<div id="datos-paciente" class="w-100 pl-5 pt-5"></div>
+						<div id="cabecera-menu-lateral" class="w-100 pl-5 pt-5"></div>
 					</div>
 					<div class="row">
-						<div id="datos-medico" class="w-100 pl-5"></div>
+						<div id="cuerpo-menu-lateral" class="w-100 pl-5"></div>
 					</div>
 				</div>
 			</div>
@@ -33,21 +34,18 @@
 						<div class="col">
 							<p id="saludo" class="h3 pt-4 pl-5 text-secondary"></p>
 						</div>
-						<div class="col col-lg-2">
+						<div class="col col-lg-3">
 							<div id="perfil" class="container-fluid pt-4">
-								<div class="row">
-									<div class="col">
-										<img src="img/logo.png" alt="logo" width="100" height="25"></img>
+								<div class="row" onclick="getComponente('perfil','contenido');"
+									style="cursor: pointer;">
+									<div class="col-sm-1 mt-1">
+										<img src="img/user.png" alt="logo" width="25" height="25"></img>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col ">
-										<small><b id="nombre-perfil">Nombre Apellido</b></small>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col text-secondary">
-										<small>NNSS: 123456789</small>
+										<p class="text h4 small">
+											<small><b><span id="nombre-paciente"></span></b></small> <br />
+											<small><b>NNSS: </b><span id="nnss"></span></small>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -58,15 +56,23 @@
 							<hr>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col">
+							<div id="contenido"></div>
+						</div>
+					</div>
 				</div>
 			</div>
+		</div>
+		<div id="modal" class="modal">
+			<div id="modal-content" class="modal-content mt-3"></div>
 		</div>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script>-->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -76,5 +82,6 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/paciente.js"></script>
+	<div id="fragment-scripts"></div>
 </body>
 </html>

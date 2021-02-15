@@ -74,4 +74,27 @@ public class CitaServiceImpl implements CitaService {
 		citaRepository.delete(Mapper.getModelMapper().map(cita, Cita.class));
 		return cita;
 	}
+	
+	public List<Optional<CitaDto>>  findByIdPaciente(@NonNull CitaDto cita) throws IOException {
+		List<Optional<Cita>> citasList =  citaRepository.findByIdPaciente(cita.getId());
+		List<Optional<CitaDto>> citasDtoList = Lists.newArrayList();
+		citasList.forEach(OpCita -> {
+			OpCita.ifPresent(elem -> {
+				CitaDto citaDto = CitaDto.builder()
+				.estado(elem.getEstado())
+				.fecCreacion(elem.getFechaCreacion())
+				.fecHoraCita(elem.getFechaHoraCita())
+				.fecModificacion(elem.getFechaModificacion())
+				.historial(elem.getHistorial())
+				.id(elem.getId())
+				.medico(elem.getMedico())
+				.motivoCita(elem.getMotivoCita())
+				.paciente(elem.getPaciente()).build();	
+				
+				citasDtoList.add(Optional.of(citaDto));
+			});
+		});
+		return citasDtoList;
+	}
+	
 }

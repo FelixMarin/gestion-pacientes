@@ -15,5 +15,6 @@ public interface CitaService {
 	abstract Optional<CitaDto> save(CitaDto cita);
 	abstract Optional<CitaDto> update(@NonNull CitaDto cita) throws IOException;
 	abstract CitaDto delete(CitaDto cita);
+	abstract List<Optional<CitaDto>> findByIdPaciente(@NonNull CitaDto cita) throws IOException;
 	
 }

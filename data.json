@@ -1,0 +1,105 @@
+[
+  {
+    "id": 14,
+    "paciente": {
+      "id": 4,
+      "usuario": {
+        "id": 4,
+        "nombre": "Rui",
+        "apellidos": "Guirao Mena",
+        "login": "rugume",
+        "tipoUsuario": "P",
+        "clave": "0000",
+        "fechaCreacion": "2021-02-08",
+        "fechaModificacion": "2021-02-08"
+      },
+      "medico": {
+        "id": 2,
+        "usuario": {
+          "id": 6,
+          "nombre": "Maria",
+          "apellidos": "Jimeno Pardo",
+          "login": "majipa",
+          "tipoUsuario": "M ",
+          "clave": "0000",
+          "fechaCreacion": "2021-02-08",
+          "fechaModificacion": "2021-02-08"
+        },
+        "numColegiado": "233456776",
+        "fechaCreacion": "2021-02-08",
+        "fechaModificacion": "2021-02-08"
+      },
+      "nnss": "343145432",
+      "numTarjeta": "345543543",
+      "observaciones": "",
+      "telefono": "67878987",
+      "fechaCreacion": "2021-02-08",
+      "fechaModificacion": "2021-02-08"
+    },
+    "medico": {
+      "id": 4,
+      "usuario": {
+        "id": 8,
+        "nombre": "Vlad  ",
+        "apellidos": "Gonzalez Neira",
+        "login": "vagone",
+        "fechaCreacion": "2021-02-08",
+        "fechaModificacion": "2021-02-08"
+      },
+      "numColegiado": "433223456                                         ",
+      "fechaCreacion": "2021-02-08",
+      "fechaModificacion": "2021-02-08"
+    },
+    "historial": {
+      "id": 13,
+      "paciente": {
+        "id": 4,
+        "usuario": {
+          "id": 4,
+          "nombre": "Rui",
+          "apellidos": "Guirao Mena",
+          "login": "rugume",
+          "tipoUsuario": "P ",
+          "clave": "0000",
+          "fechaCreacion": "2021-02-08",
+          "fechaModificacion": "2021-02-08"
+        },
+        "medico": {
+          "id": 2,
+          "usuario": {
+            "id": 6,
+            "nombre": "Maria",
+            "apellidos": "Jimeno Pardo",
+            "login": "majipa",
+            "tipoUsuario": "M ",
+            "clave": "0000",
+            "fechaCreacion": "2021-02-08",
+            "fechaModificacion": "2021-02-08"
+          },
+          "numColegiado": "233456776",
+          "fechaCreacion": "2021-02-08",
+          "fechaModificacion": "2021-02-08"
+        },
+        "nnss": "343145432",
+        "numTarjeta": "345543543",
+        "observaciones": "",
+        "telefono": "67878987",
+        "fechaCreacion": "2021-02-08",
+        "fechaModificacion": "2021-02-08"
+      },
+      "historial": "diagnostico de prueba",
+      "fechaCreacion": "2021-02-08",
+      "fechaModificacion": "2021-02-08"
+    },
+    "estado": {
+      "id": 2,
+      "nombre": "CERRADO",
+      "fechaCreacion": "2021-02-08",
+      "fechaModificacion": "2021-02-08"
+    },
+    "motivoCita": "Catarro",
+    "fecHoraCita": "2021-02-08",
+    "fecCreacion": "2021-02-08",
+    "fecModificacion": "2021-02-08"
+  }
+]

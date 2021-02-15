@@ -1,103 +1,108 @@
 function init() {
-    //$('datos-paciente').click(function(){  });
-
     let paciente = JSON.parse(window.localStorage.getItem('paciente'));
 
-    if(paciente) {
-        cabecera(paciente);
-        datosPaciente(paciente);
-        menuLateral(paciente);
+    if (paciente) {
+        saludo(paciente);
+        cabeceraMenuLateral();
+        getComponente('cuerpoMenuLateral', 'cuerpo-menu-lateral');
+        infoPaciente(paciente);
+        citasPaciente(paciente);
     } else {
-        window.location = 'http://localhost:8081/login';	
+        window.location = '/login';
     }
 }
 
-function cabecera(paciente) {
+function saludo(paciente) {
     let div = document.getElementById('saludo');
     div.innerHTML = 'Hola, ' + paciente.usuario.nombre.trim();
 }
 
-function datosPaciente(paciente) {
-    
-    if(paciente) {
-
-    let div = document.getElementById('datos-paciente');
+function cabeceraMenuLateral() {
+    let div = document.getElementById('cabecera-menu-lateral');
 
     var newlabel = document.createElement("Label");
-    newlabel.setAttribute("for","label-datos-paciente");
-    newlabel.innerHTML = "<div><p class='text h6'><b>Menú Principal</b> </div>";
-
-
-    /*newlabel.innerHTML += "<b>Nombre:</b> " + paciente.usuario.nombre.trim() + "&emsp;<b>Apellidos:</b> " + paciente.usuario.apellidos.trim() + "&emsp;<b>NNSS:</b> " + paciente.nnss.trim() + 
-                            "&emsp;<b>Telefono:</b> " + paciente.telefono.trim() + "</p></div>";*/
+    newlabel.setAttribute("for", "label-cabecera-menu-lateral");
+    newlabel.innerHTML = "<div onclick='recargar();'><p class='text h6'><b>Menú Principal</b> </div>";
     div.appendChild(newlabel);
-    }
 }
 
-function menuLateral(paciente) {
+function infoPaciente(paciente) {
+    let spanNombre = document.getElementById('nombre-paciente');
+    spanNombre.innerText = paciente.usuario.nombre.trim();
+    spanNombre.innerText += ' ' + paciente.usuario.apellidos.trim();
 
-    let div = document.getElementById('datos-medico');
+    let spanNNSS = document.getElementById('nnss');
+    spanNNSS.innerText = paciente.numTarjeta.trim();
 
-    if(paciente && div) {
-    
-        var newlabel = document.createElement("div");        
-        newlabel.setAttribute("id","label-datos-medico"); 
-        newlabel.setAttribute("name","label-datos-medico");        
-        
-        var divBuscar = document.createElement("div");
-        newlabel.setAttribute("id","div-buscar");  
-        newlabel.setAttribute("name","div-buscar"); 
-
-        var pBuscar = document.createElement("p");
-        pBuscar.setAttribute("id","p-buscar");  
-        pBuscar.setAttribute("name","p-buscar"); 
-        pBuscar.setAttribute("value","Buscar"); 
-        pBuscar.style.cursor = 'pointer';
-        pBuscar.innerText = 'Buscar';
-        pBuscar.setAttribute("onclick", "buscar()");
-        divBuscar.appendChild(pBuscar);
-        newlabel.appendChild(divBuscar);
-        
-        var divMensajes = document.createElement("div");
-        newlabel.setAttribute("id","div-mensajes");  
-        newlabel.setAttribute("name","div-mensajes"); 
-
-        var pMensajes = document.createElement("p");
-        pMensajes.setAttribute("id","p-mensajes");  
-        pMensajes.setAttribute("name","p-mensajes"); 
-        pMensajes.style.cursor = 'pointer';
-        pMensajes.setAttribute("value","Mensajes"); 
-        pMensajes.innerText = 'Mensajes';
-        pMensajes.setAttribute("onclick", "mensajes()");
-        divMensajes.appendChild(pMensajes);
-        newlabel.appendChild(divMensajes);
-
-        var divDiagnosticos = document.createElement("div");
-        newlabel.setAttribute("id","div-diagnosticos");  
-        newlabel.setAttribute("name","div-diagnosticos"); 
-
-        var pDiagnosticos = document.createElement("p");
-        pDiagnosticos.setAttribute("id","p-diagnosticos");  
-        pDiagnosticos.setAttribute("name","p-diagnosticos"); 
-        pDiagnosticos.style.cursor = 'pointer';
-        pDiagnosticos.setAttribute("value","Diagnosticos"); 
-        pDiagnosticos.innerText = 'Diagnosticos';
-        pDiagnosticos.setAttribute("onclick", "diagnosticos()");
-        divDiagnosticos.appendChild(pDiagnosticos);
-        newlabel.appendChild(divDiagnosticos);
-        
-        div.appendChild(newlabel);
-        }
 }
 
-function buscar() {
-    alert('buscar');
+function getComponente(path, id) {
+    fetch("/" + path)
+        .then(response => {
+            return response.text()
+        })
+        .then(data => {
+            document.querySelector("#" + id).innerHTML = data;
+        });
 }
 
-function mensajes() {
-    alert('mensajes');
+function bold(elem) {
+
+    let elements = document.getElementById('p-medicacion').parentNode.parentNode.querySelectorAll('p');
+
+    elements.forEach(function (elemList) {
+        elemList.style.fontWeight = 'normal';
+        elemList.style.fontSize = "initial";
+        elemList.style.color = '#000';
+    });
+    elem.style.fontWeight = 'bold';
+    elem.style.fontSize = "larger";
+    elem.style.color = 'darkslateblue';
 }
 
-function diagnosticos() {
-    alert('diagnosticos');
+function recargar() {
+    window.location = '/paciente';
+}
+
+function citasPaciente(paciente) {
+
+    let idPacienteJSON = '{"id":"' + paciente.id + '"}';
+
+    $.ajax({
+        contentType: 'application/json',
+        async: false,
+        data: idPacienteJSON,
+        success: function (data) {
+            if (data) {
+                console.log(data);
+                let cita = JSON.stringify(data);
+                window.localStorage.setItem('cita', cita);
+            } else {
+                alert('No se han podido cargar las citas');
+            }
+        },
+        error: function (xhr, textStatus, error) {
+            console.log(xhr.responseText);
+            console.log(xhr.statusText);
+            console.log(textStatus);
+            console.log(error);
+        },
+        processData: false,
+        url: '/cita/findbypaciente',
+        type: 'POST',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + window.localStorage.getItem('access_token'));
+        },
+    });
+}
+
+function importCitas() {
+
+    let fs = document.getElementById('fragment-scripts'); 
+    fs.innerHTML = '';            
+    let newScript = document.createElement("script");
+    newScript.type = "text/javascript";
+    newScript.async = false;
+    newScript.src = "js/cita.js";
+    fs.appendChild(newScript);
 }
